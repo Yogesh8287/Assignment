@@ -1,0 +1,19 @@
+@host=http://localhost:3000/products
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmJiZmQ4YmVhMWE0YjhiOGVlZjMyNmIiLCJ1c2VybmFtZSI6InlvZ2VzaDEyMyIsImlhdCI6MTY1NjQ5MjMyNywiZXhwIjoxNjU2NTAzMTI3fQ.hL112qHae-X1Lb1D63S--L-UgraoIxqRQXEJ4YBo48E
+
+
+GET {{host}}
+
+###
+POST {{host}}/upload
+Authorization: Bearer {{token}}
+Cache-Control: no-cache
+Postman-Token: a5e46360-ac35-1b05-e1f9-76bfd433dcfb
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="products.csv"
+Content-Type: text/csv
+
+< ../data/products.csv
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
