@@ -5,29 +5,40 @@ const User = require("../model/User");
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
-  const validuser = await User.findOne({ username: req.body.username });
-  if (validuser) return res.status(400).send("User already exists");
+  let user = await User.findOne({ username: req.body.username });
+  if (user) return res.status(400).send("Username already exists");
 
-  const user = new User(
+  user = new User(
     _.pick(req.body, ["firstname", "lastname", "username", "password"])
   );
+
+  // hash password
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(user.password, salt);
   await user.save();
 
+  // generate auth token
   const token = user.generateAuthToken();
-  res.send({ user, token });
+
+  res.send({
+    user: _.pick(user, ["_id", "username", "firstname", "lastname"]),
+    token,
+  });
 });
 
 router.post("/login", async (req, res) => {
-  const user = await User.findOne({ username: req.body.username });
+  const { username, password } = req.body;
+
+  const user = await User.findOne({ username });
   if (!user) return res.status(400).send("Invalid username and password");
 
-  const password = bcrypt.compare(req.body.password, user.password);
-  if (!password) return res.status(400).send("Invalid username and password");
+  const isValidPassword = bcrypt.compare(password, user.password);
+  if (!isValidPassword)
+    return res.status(400).send("Invalid username and password");
 
   const token = user.generateAuthToken();
-  res.send(token);
+
+  res.send({ token });
 });
 
 module.exports = router;

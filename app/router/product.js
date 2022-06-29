@@ -12,7 +12,16 @@ const router = express.Router();
 const upload = multer({ dest: "uploads/" });
 
 router.get("/", async (req, res) => {
-  const product = await Product.find();
+  const products = await Product.find();
+  res.send(products);
+});
+
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const product = await Product.findById(id);
+  if (!product) return res.status(404).send("Product not found");
+
   res.send(product);
 });
 

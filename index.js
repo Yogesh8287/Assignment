@@ -1,19 +1,21 @@
-const express = require("express");
 require("dotenv").config();
+const express = require("express");
+require("express-async-errors");
 const mongoose = require("mongoose");
-const user = require("./app/router/user");
 const auth = require("./app/router/auth");
 const product = require("./app/router/product");
+const error = require("./app/middleware/error");
 const app = express();
 
 mongoose
   .connect("mongodb://localhost/store")
-  .then(() => console.log("connected to mongodb"))
-  .catch(() => console.log("does not connected to mongodb"));
+  .then(() => console.log("Connected to mongodb..."))
+  .catch(() => console.log("Could not connect to mongodb"));
 
 app.use(express.json());
-app.use("/user", user);
-app.use("/auth", auth);
-app.use("/products", product);
+app.use("/api/auth", auth);
+app.use("/api/products", product);
+app.use(error);
 
-app.listen(3000, () => console.log("listening on port 3000"));
+const PORT = process.env.PORT || 5000;
+app.listen(3000, () => console.log(`Listening on port ${PORT}...`));

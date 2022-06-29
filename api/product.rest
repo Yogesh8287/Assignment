@@ -1,8 +1,10 @@
-@host=http://localhost:3000/products
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmJiZmQ4YmVhMWE0YjhiOGVlZjMyNmIiLCJ1c2VybmFtZSI6InlvZ2VzaDEyMyIsImlhdCI6MTY1NjQ5MjMyNywiZXhwIjoxNjU2NTAzMTI3fQ.hL112qHae-X1Lb1D63S--L-UgraoIxqRQXEJ4YBo48E
-
+@host=http://localhost:3000/api/products
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmJjNWQxYWMxMDJhYTE3NDBiMTA5YzUiLCJ1c2VybmFtZSI6IllvZ2VzaCIsImlhdCI6MTY1NjUxMTc3MCwiZXhwIjoxNjU2NTIyNTcwfQ.P4QqKcddJRNvzxChvABDQsPOb1mWwIrHZjEAuM8ojmw
 
 GET {{host}}
+
+###
+GET {{host}}/62bc5ccfc102aa1740b109c2
 
 ###
 POST {{host}}/upload
